@@ -42,6 +42,7 @@
 /.cache
 /.lesshst
 /.vim-fuf-data
+/.vim/bundle
 
 # Local Configuration & Security
 
