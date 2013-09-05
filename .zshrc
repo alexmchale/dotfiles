@@ -128,7 +128,7 @@ alias gemi='ruby -S gem install --no-ri --no-rdoc --remote'
 alias gems='ruby -S gem search --remote'
 alias gemu='ruby -S gem uninstall --all --executables'
 alias gls="git log --pretty=oneline"
-alias gs='git status'
+alias gs='git s'
 alias la="ls -a"
 alias ll='ls -l'
 alias mvim-merge-conflicts="grep -l -r '<<<<<<<' $GREP_SEARCH_PATH | xargs grep -l -r '>>>>>>>' | xargs grep -l -r '=======' | xargs mvim -p"
