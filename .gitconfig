@@ -13,6 +13,8 @@
   ci = commit
   co = checkout
   cb = checkout -b
+  s  = status --short --branch
+  sn = status --short --branch --untracked=no
 
 [branch "master"]
   remote = origin
