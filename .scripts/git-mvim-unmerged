@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+require "shellwords"
+
+status   = `git status`
+unmerged = status.scan(/both modified:\s*(.*?)$/).flatten
+args     = unmerged.map { |f| Shellwords.shellwords f }
+
+exec "mvim -p #{args.join ' '}"

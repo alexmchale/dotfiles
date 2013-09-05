@@ -1,0 +1,9 @@
+#!/bin/sh
+
+for file in /usr/bin/*; do
+  rubyshebang=`cat $file | head -n1 | grep -i ruby`
+
+  if [ ! -z "$rubyshebang" ]; then
+    echo "$file -- $rubyshebang"
+  fi
+done

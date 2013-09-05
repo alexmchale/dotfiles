@@ -1,0 +1,5 @@
+#!/bin/bash
+
+NAME="$*"
+
+RAILS_ENV=test bundle exec turn -R -I test -n "$NAME" test/unit/ test/functional/

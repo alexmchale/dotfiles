@@ -1,0 +1,37 @@
+#!/usr/bin/env ruby
+
+require "rubygems"
+require "exiv2"
+require "time"
+require "fileutils"
+
+loop do
+
+  arg = ARGV.shift
+  break unless arg
+
+  image_filename = File.expand_path(arg)
+  repository     = File.expand_path("~/Pictures/All")
+  extension      = File.extname(image_filename)
+
+  image = Exiv2::ImageFactory.open(image_filename)
+  image.read_metadata
+
+  time   = image.exif_data["Exif.Photo.DateTimeDigitized"]
+  time ||= image.exif_data["Exif.Image.DateTime"]
+
+  if time == nil
+    puts "image has no timestamps: #{image_filename}"
+    next
+  end
+
+  time   = time.gsub(/(\d\d\d\d):(\d\d):(\d\d)/, '\1-\2-\3')
+  time   = Time.parse(time)
+
+  folder   = File.join(repository, time.strftime("%Y-%m"))
+  filename = "#{ time.strftime '%Y-%m-%d.%H-%M-%S' }#{ extension }"
+
+  FileUtils.mkdir_p(folder)
+  FileUtils.cp(image_filename, File.join(folder, filename))
+
+end

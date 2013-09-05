@@ -1,0 +1,11 @@
+#!/bin/bash
+
+echo "All Virtual Machines:"
+echo
+VBoxManage list vms
+
+echo
+
+echo "Running Virtual Machines:"
+echo
+VBoxManage list runningvms

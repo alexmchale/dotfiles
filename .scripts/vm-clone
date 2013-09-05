@@ -1,0 +1,48 @@
+#!/bin/bash
+
+SRC="$1"
+DST="$2"
+DST_VBOX="/Volumes/HDD/Virtual Machines/$DST/$DST.vbox"
+
+if [ -z "$SRC" ] || [ -z "$DST" ]; then
+  VBoxManage list vms
+  exit 0
+fi
+
+if ! VBoxManage showvminfo "$SRC" > /dev/null 2>&1; then
+  echo "no vm $SRC found"
+  exit 1
+fi
+
+if VBoxManage showvminfo "$DST" > /dev/null 2>&1; then
+  echo "vm $DST already exists"
+  exit 2
+fi
+
+VBoxManage clonevm "$SRC" --name "$DST"
+VBoxManage registervm "$DST_VBOX"
+VBoxManage startvm "$DST" --type headless
+
+echo "Removing $SRC and $DST from known hosts."
+cat ~/.ssh/known_hosts | egrep -v -i "^$SRC |^$SRC.local |^$DST |^$DST.local " > ~/.ssh/known_hosts
+
+echo -n "Waiting for $SRC's ssh to come up ..."
+while [ -z "`nmap -p 22 $SRC 2>&1 | grep ssh | grep open`" ]; do
+  echo -n "."
+  sleep 1
+done
+echo " up!"
+
+echo "Writing hostname."
+if [ "$SRC" = "centos" ]; then
+  ssh -o StrictHostKeyChecking=no root@$SRC "perl -p -i -e 's/$SRC/$DST/g' /etc/sysconfig/network ; reboot"
+else
+  ssh -o StrictHostKeyChecking=no root@$SRC "perl -p -i -e 's/$SRC/$DST/g' /etc/hostname ; reboot"
+fi
+
+echo -n "Waiting for $DST's ssh to come up ..."
+while [ -z "`nmap -p 22 $DST 2>&1 | grep ssh | grep open`" ]; do
+  echo -n "."
+  sleep 1
+done
+echo " up!"

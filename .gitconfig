@@ -1,0 +1,50 @@
+[user]
+  name = Alex McHale
+  email = alex@anticlever.com
+
+[color]
+  diff = auto
+  status = auto
+  branch = auto
+  interactive = auto
+  ui = auto
+
+[alias]
+  ci = commit
+  co = checkout
+  cb = checkout -b
+
+[branch "master"]
+  remote = origin
+  merge = refs/heads/master
+
+[difftool "Kaleidoscope"]
+  cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+
+[difftool "BC3"]
+  #cmd = /Users/alexmchale/winediff \"$LOCAL\" \"$REMOTE\"
+
+[difftool]
+  prompt = false
+
+[diff]
+  tool = "BC3"
+
+[core]
+  editor = /usr/bin/vim
+
+[push]
+  default = upstream
+
+[pull]
+  default = upstream
+
+[mergetool "Kaleidoscope"]
+  cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+  trustExitCode = true
+
+[mergetool]
+  prompt = false
+
+[merge]
+  tool = Kaleidoscope

@@ -1,0 +1,15 @@
+#!/bin/sh
+
+NAME="$1"
+
+if [ -z "$NAME" ]; then
+  echo "syntax: $0 <vm>"
+  exit 1
+fi
+
+if ! VBoxManage showvminfo "$NAME" > /dev/null 2>&1; then
+  echo "no such vm $NAME"
+  exit 2
+fi
+
+VBoxManage startvm --type headless "$NAME"

@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+
+require "rubygems"
+require "kramdown"
+require "shellwords"
+
+filename = File.expand_path(ARGV.shift.to_s)
+basename = filename.scan(/(.*)\.[^\.]*$/).first.first
+html     = "#{basename}.html"
+pdf      = "#{basename}.pdf"
+markdown = File.read(filename)
+
+File.open(html, "w") { |f| f.write Kramdown::Document.new(markdown).to_html }
+system "wkhtmltopdf #{Shellwords.shellwords html} #{Shellwords.shellwords pdf}"

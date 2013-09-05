@@ -1,0 +1,297 @@
+#!/usr/bin/env ruby
+# encoding: UTF-8
+
+require "rubygems"
+require "pp"
+require "thor"
+require "redis"
+require "feedzirra"
+require "cgi"
+require "mail"
+require "digest/sha1"
+
+FEED_URLS_KEY      = "atomic_digest:feed_urls"
+FEED_XML_CACHE_KEY = "atomic_digest:feed_caches"
+SENT_ENTRIES_KEY   = "atomic_digest:sent_entries"
+
+$redis = Redis.new(db: 15)
+
+Mail.defaults do
+  delivery_method :smtp, {
+    :address              => "mail.messagingengine.com",
+    :port                 => 587,
+    :user_name            => 'alex@anticlever.com',
+    :password             => 'tRMnE72dveXJWa',
+    :authentication       => 'plain',
+    :enable_starttls_auto => true,
+  }
+end
+
+class Feed
+
+  attr_reader :url, :xml, :feed
+
+  def initialize(url)
+    @url  = url
+    @xml  = fetch_xml if @url
+    @feed = Feedzirra::Feed.parse xml if @xml
+  end
+
+  def fetch_xml
+    key = "#{FEED_XML_CACHE_KEY}:#{url}"
+    xml = $redis.get key
+    return clean_xml(xml) if xml
+    xml = Curl::Easy.http_get(url) do |c|
+      c.follow_location = true
+      c.max_redirects   = 5
+    end.body_str
+    return unless xml
+    $redis.setex key, 3600, xml
+    return clean_xml(xml)
+  rescue Curl::Err::CurlError => e
+    puts "connection failed for #{url} -> #{e.message}"
+  end
+
+  def clean_xml xml
+    xml.gsub('src="//', 'src="http://')
+  end
+
+  def valid?
+    @feed != nil
+  end
+
+  def add!
+    if valid?
+      $redis.sadd FEED_URLS_KEY, url
+      true
+    end
+  end
+
+  def all_feed_urls
+    $redis.smembers FEED_URLS_KEY
+  end
+
+  def articles
+    feed.entries.map { |entry| Article.new self, entry }
+  end
+
+  def self.discover_feed_urls url
+    feeds = []
+
+    url = "http://#{url}" unless url =~ /^http/
+
+    html = Curl::Easy.http_get(url) do |c|
+      c.follow_location = true
+      c.max_redirects   = 5
+    end.body_str
+
+    doc = Nokogiri::HTML(html)
+
+    doc.css("link").each do |link_tag|
+      feeds << link_tag["href"] if link_tag["type"] == "application/atom+xml"
+      feeds << link_tag["href"] if link_tag["type"] == "application/rss+xml"
+    end
+
+    feeds.map! do |feed|
+      case feed
+      when %r|^//| then "http:#{feed}"
+      when %r|^/|  then "#{url}#{feed}"
+      else              feed
+      end
+    end
+
+    feeds
+  end
+
+end
+
+class Article
+
+  def initialize feed, entry
+    @feed  = feed
+    @entry = entry
+  end
+
+  def id
+    Digest::SHA1.hexdigest [ @feed.etag, @entry.url, @entry.published ].join
+  end
+
+  def published_at
+    @entry.published
+  end
+
+  def read? feed, entry
+    $redis.sismember SENT_ENTRIES_KEY, id
+  end
+
+  def <=> other
+    return 0  if self.published_at == nil && other.published_at == nil
+    return -1 if self.published_at == nil && other.published_at != nil
+    return 1  if self.published_at != nil && other.published_at == nil
+    return self.published_at <=> other.published_at
+  end
+
+end
+
+class Issue
+
+  def initialize
+  end
+
+  def feeds
+    @feed_urls ||= $redis.smembers(FEED_URLS_KEY)
+    @feeds     ||= @feed_urls.map { |url| Feed.new url }
+  end
+
+  def all_articles
+    @articles ||= feeds.map { |feed| feed.articles }.flatten.sort
+  end
+
+  def unread_articles
+    all_articles.reject { |article| article.read? }
+  end
+
+end
+
+class AtomicDigest < Thor
+
+  desc "add URL", "Add the given feed to your list"
+  def add url
+    feed = Feed.new(url)
+
+    if feed.add!
+      puts "Feed added."
+    else
+      puts "Could not parse feed."
+    end
+  end
+
+  desc "list", "List the active feeds"
+  def list
+    Feed.all_feed_urls.each_with_index do |feed_url, i|
+      puts "#{i + 1}) #{feed_url}"
+    end
+  end
+
+  desc "issue", "Generates and emails your latest digest"
+  def issue
+    send_issue $redis.smembers(FEED_URLS_KEY)
+  end
+
+  desc "unsent", "Reset all sent data"
+  def unsent
+    $redis.del SENT_ENTRIES_KEY
+  end
+
+  desc "discover URL", "Discover the feeds associated with the given URL"
+  def discover(url)
+    feed_urls = Feed.discover_feed_urls(url)
+
+    if feed_urls.length == 0
+      puts "No feeds found for that URL."
+      exit 1
+    end
+
+    puts "Select feeds to add:"
+    puts
+
+    feed_urls.each_with_index do |feed_url, i|
+      printf "%4d) %s\n" % [ i + 1, feed_url ]
+    end
+
+    puts
+    printf "Select a feed: "
+
+    i = STDIN.gets.to_i - 1
+    puts
+
+    unless (0 ... feed_urls.length).include? i
+      puts "That's not a valid selection."
+      exit 1
+    end
+
+    feed_url = feed_urls[i]
+
+    add feed_url
+  end
+
+  desc "load FILE", "Load the backup file into Redis"
+  def load
+  end
+
+  desc "save FILE", "Save the data found in Atomic Digester's Redis database into a file"
+  def save
+  end
+
+  private
+
+  def send_issue feed_urls
+    xmls     = feed_urls.map { |url| fetch_xml url }
+    feeds    = xmls.map { |xml| Feedzirra::Feed.parse xml }
+    sections = feeds.map { |feed| build_section feed }
+    html     = sections.compact.join("<hr>")
+
+    if @sending == nil || html == ""
+      puts "nothing to send"
+    else
+      Mail.deliver do
+        to        "alex@anticlever.com"
+        from      "alex@anticlever.com"
+        subject   "Atomic Digest"
+
+        html_part do
+          content_type 'text/html; charset=UTF-8'
+          body         html
+        end
+      end
+
+      finish_successful_session
+    end
+  end
+
+  def build_section feed
+    entries = feed.entries.select { |entry| send_entry? feed, entry }
+    return if entries.length == 0
+
+    html = ""
+
+    html << %[<h1><a href="#{CGI.escape_html feed.url}">#{feed.title}</a></h1>]
+
+    entries.each do |entry|
+      title = entry.title.to_s.strip
+      title = entry.published.strftime("%B %d, %Y at %H:%M") if title == ""
+      title = CGI.escape_html title
+      html << %[<h2><a href="#{CGI.escape_html entry.url}">#{title}</a></h2>]
+
+      content = entry.content.to_s.strip
+      content = entry.summary.to_s.strip if content == ""
+      html << content
+
+      html << "<hr>"
+
+      consider_sending feed, entry
+    end
+
+    html
+  end
+
+  def send_entry? feed, entry
+    ! Article.new(feed, entry).read?
+  end
+
+  def consider_sending feed, entry
+    @sending ||= []
+    @sending << Article.new(feed, entry).id
+  end
+
+  def finish_successful_session
+    return if @sending.nil?
+    @sending.each do |id|
+      $redis.sadd SENT_ENTRIES_KEY, id
+    end
+    @sending = []
+  end
+
+end
+
+AtomicDigest.start

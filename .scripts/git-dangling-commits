@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+
+# Make sure we're at the root of a git repository.
+if ! File.directory? ".git"
+  puts "please run this from the root of a git repository"
+  exit 1
+end
+
+# Get a list of dangling commits from fsck.
+fsck = `git fsck --lost-found 2>&1 | grep "dangling commit"`
+
+# Clean up the list so we have just a list of SHA-1s.
+commits = fsck.split(/[\r\n]+/).map(&:strip).map { |c| c[/[a-f0-9]{40}/] }
+
+# Get the oneline description of each commit.
+logs = commits.map { |c| c + `git show --oneline #{c} 2>&1 | head -n 1` }
+
+# Remove the partial SHA-1 added by "git show" in favor of the full SHA-1 we
+# prepended above.
+logs.each { |log| log.sub! /[a-f0-9]{7} /, " " }
+
+# Print the results.
+logs.each { |log| puts log }

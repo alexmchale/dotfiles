@@ -1,0 +1,11 @@
+#!/bin/bash
+
+for project in ~/Dropbox/Projects/*/*; do
+  pushd "$project"
+
+  #/usr/bin/git gc --aggressive
+  rm -f log/*.log
+  rm -rf tmp/cache/*
+
+  popd
+done

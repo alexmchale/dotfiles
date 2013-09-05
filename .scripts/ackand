@@ -1,0 +1,10 @@
+#!/usr/bin/ruby
+
+require "shellwords"
+
+ARGV.map! { |s| Regexp.escape s }
+
+unescaped_regex = ARGV.permutation.map { |a| "(" + a.join(".*") + ")" }.join("|")
+escaped_regex = Shellwords.shellescape unescaped_regex
+
+exec "ack #{escaped_regex}"

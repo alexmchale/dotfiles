@@ -1,0 +1,33 @@
+#!/bin/sh
+
+NAME="$1"
+
+if [ -z "$NAME" ]; then
+  echo "syntax: $0 <vm>"
+  exit 1
+fi
+
+if ! VBoxManage showvminfo "$NAME" > /dev/null 2>&1; then
+  echo "no such vm $NAME"
+  exit 2
+fi
+
+# Get the mac address for the vm
+MAC=`VBoxManage showvminfo $NAME | grep MAC | sed -e 's/.*MAC: \([0-9A-F]*\),.*/\1/'`
+MAC=`echo $MAC | awk '{ print tolower($0) }'`
+MAC=`echo $MAC | sed -e 's/\(..\)/\1:/g' | sed -e 's/:$//'`
+MAC=`echo $MAC | sed -e 's/0\([0-9]\)/\1/g'`
+
+if [ -z "$MAC" ]; then
+  echo "could not find mac address for $NAME"
+  exit 3
+fi
+
+# Update arp table
+#for i in {1..254}; do
+#  ping -c 1 -t 1 192.168.1.$i > /dev/null 2>&1 &
+#done
+#sleep 10
+
+# Find IP: substitute vname-mac-addr with your vm's mac address in ':' notation
+arp -a | grep $MAC

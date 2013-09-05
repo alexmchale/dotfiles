@@ -1,0 +1,63 @@
+#!/bin/sh
+
+/bin/rm /tmp/enc-data{,.out,.passphrase} 2>/dev/null
+
+if [ "$1" = "decrypt" ]
+then
+
+	echo "enter data to decrypt followed by a blank line:"
+	perl -e ' while(<STDIN>) { last if ( $_ eq "\n" ); $a .= $_; } print( $a =~ m{==DRH=ENCRYPT=DATA=V1=BEGIN==\n(.*)==DRH=ENCRYPT=DATA=V1=END==}s ? $1 : $a ) ' > /tmp/enc-data
+
+	echo "enter passphrase:"
+	stty_orig=`stty -g`
+	stty -echo
+	perl -e ' $a = <STDIN>; print $a ' > /tmp/enc-data.passphrase
+	stty $stty_orig
+	echo
+
+	perl -e ' $a=<STDIN>; unless ( $a =~ m/^ib.{26}ln$/ ) { print STDERR "PASSWORD IS WRONG!\n"; exit(1); } ' < /tmp/enc-data.passphrase || exit 1
+
+	openssl enc -d -aes-256-cbc -a -salt -in /tmp/enc-data -out /tmp/enc-data.out -pass file:/tmp/enc-data.passphrase
+
+	echo    
+	echo decrypted data:
+	echo
+	cat /tmp/enc-data.out
+	echo    
+
+	perl -e 'print ("x"x9999)' > /tmp/enc-data
+	perl -e 'print ("x"x9999)' > /tmp/enc-data.passphrase
+	perl -e 'print ("x"x9999)' > /tmp/enc-data.out
+	/bin/rm /tmp/enc-data{,.out}
+
+else
+
+	echo "enter data to encrypt followed by a blank line:"
+	perl -e ' while(<STDIN>) { last if ( $_ eq "\n" ); $a .= $_; } print $a '  > /tmp/enc-data
+
+	echo "enter passphrase:"
+	stty_orig=`stty -g`
+	stty -echo
+	perl -e ' $a = <STDIN>; print $a ' > /tmp/enc-data.passphrase
+	stty $stty_orig
+	echo
+
+	perl -e ' $a=<STDIN>; unless ( $a =~ m/^ib.{26}ln$/ ) { print STDERR "PASSWORD IS WRONG!\n"; exit(1); } ' < /tmp/enc-data.passphrase || exit 1
+
+	openssl enc -e -aes-256-cbc -a -salt -in /tmp/enc-data -out /tmp/enc-data.out -pass file:/tmp/enc-data.passphrase
+
+	echo    
+	echo encrypted data:
+	echo
+	echo ==DRH=ENCRYPT=DATA=V1=BEGIN==
+	cat /tmp/enc-data.out
+	echo ==DRH=ENCRYPT=DATA=V1=END==
+	echo    
+
+fi
+
+perl -e 'print ("x"x9999)' > /tmp/enc-data
+perl -e 'print ("x"x9999)' > /tmp/enc-data.passphrase
+perl -e 'print ("x"x9999)' > /tmp/enc-data.out
+/bin/rm /tmp/enc-data{,.out,.passphrase}
+

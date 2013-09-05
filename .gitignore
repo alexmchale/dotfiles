@@ -1,0 +1,82 @@
+# Directories
+
+/Attic/
+/BTSync/
+/Calibre Library/
+/Desktop/
+/Documents/
+/Downloads/
+/Dropbox/
+/Library/
+/Movies/
+/Music/
+/Pictures/
+/Public/
+/Virtual Machines/
+/ownCloud/
+/src/
+/tmp/
+
+# History Dot Files
+
+/.bash_history
+/.irb_history
+/.mysql_history
+/.pry_history
+/.psql_history
+/.psql_history
+/.rediscli_history
+/.sqlite_history
+/.sqlite_history
+/.histfile
+
+# Temporary Files
+
+/.vbuf
+/.rnd
+/.vim_mru_files
+/.zcompdump
+/.Trash
+.DS_Store
+/.viminfo.tmp
+/.cache
+/.lesshst
+/.vim-fuf-data
+
+# Local Configuration & Security
+
+/.pow
+/.ssh
+/.cups
+/.viminfo
+/.netrc
+/.dvdcss
+/.CFUserTextEncoding
+/.sendgrid-anticlever.com
+/.vagrant.d
+/.vagrant-bridged-interface
+/.xmlstats-api
+/.mini_exiftool
+/.apdisk
+/.dropbox
+/.owncloud
+/.heroku
+/.autobahn
+/.launch-*/
+/.zerigo.yml
+
+# Wine
+
+/.config
+/.local
+/.wine
+
+# Local Package Management
+
+/.rbenv
+/.rbenv-linux
+/.rbenv-osx
+/.npm
+/.gem
+/.cpanm
+/.node-gyp

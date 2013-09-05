@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+status = `~/bin/brightness -l`
+status =~ /brightness (.*)/
+level = $1.to_f
+level = [ level - 0.1, 0.0 ].max
+
+system "~/bin/brightness #{level}"

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+FILES="$*"
+SEARCH=`echo $FILES | grep -oEi '^/([^ /]*)/$' | cut -d/ -f 2`
+
+if [ ! -z "$SEARCH" ]; then
+  FILES=`find test -name '*_test.rb' -type f | grep "$SEARCH"`
+  RAILS_ENV=test bundle exec turn -D -I test $FILES
+elif [ -z "$FILES" ]; then
+  RAILS_ENV=test bundle exec turn -D -I test test/unit/ test/functional/
+else
+  RAILS_ENV=test bundle exec turn -R -I test $FILES
+fi

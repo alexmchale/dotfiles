@@ -1,0 +1,39 @@
+#!/usr/bin/env ruby
+
+require "shellwords"
+require "open-uri"
+
+APP = "--app #{Shellwords.escape ARGV.shift}"
+DB  = Shellwords.escape(ARGV.shift)
+
+raise "heroku-pull [heroku app] [local db]" unless APP && DB
+
+def last_backup_name
+  `heroku pgbackups #{APP} | tail -n 1 | cut -d'|' -f 1`.strip
+end
+
+def delete_last_backup
+  name = last_backup_name.to_s.strip
+  system "heroku pgbackups:destroy #{name} #{APP}" if name != ""
+end
+
+def capture_new_backup
+  system "heroku pgbackups:capture #{APP}"
+end
+
+def last_backup_url
+  `heroku pgbackups:url #{last_backup_name} #{APP}`.strip.gsub(/^"|"$/, "")
+end
+
+def restore_from_backup
+  backup_filename = "/tmp/heroku_backup.dmp"
+  backup_content = open(last_backup_url).read
+  File.open(backup_filename, "w") { |f| f.write backup_content }
+  system "pg_restore --verbose --clean --no-acl --no-owner -h localhost -d #{DB} #{backup_filename}"
+  system "ls -l #{backup_filename}"
+  File.unlink backup_filename
+end
+
+delete_last_backup
+capture_new_backup
+restore_from_backup

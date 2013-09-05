@@ -1,0 +1,29 @@
+#!/usr/bin/env ruby
+
+require "set"
+require "fileutils"
+require "digest/sha1"
+
+$sha1s = {}
+$files = if ARGV.length == 0 then Dir["*"] else ARGV end
+$deletes = Set.new
+
+$files.select do |path|
+  File.file? path
+end.each do |path|
+  sha1 = Digest::SHA1.file(path).to_s
+
+  if $sha1s[sha1] == nil
+    puts "recording (#{path}) (#{sha1})"
+    $sha1s[sha1] = path
+  elsif path.length < $sha1s[sha1].length
+    puts "swapping (#{$sha1s[sha1]}) for (#{path})"
+    $deletes << $sha1s[sha1]
+    $sha1s[sha1] = path
+  else
+    puts "dropping (#{path})"
+    $deletes << path
+  end
+end
+
+p $deletes

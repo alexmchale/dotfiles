@@ -1,0 +1,34 @@
+#!/usr/bin/ruby
+
+require "net/http"
+require "yaml"
+
+class Zerigo
+
+  def initialize username, password
+    @username = username
+    @password = password
+    @current_ip = Net::HTTP.get URI.parse "http://what-is-my-ip.net/?text"
+  end
+
+  def update_host hostname
+    path    = "http://update.zerigo.com/dynamic?host=#{hostname}&user=#{@username}&password=#{@password}"
+    db      = "/tmp/last-ip-#{hostname}"
+    last_ip = if File.exists?(db) then File.read db end
+
+    if last_ip != @current_ip
+      puts "====> Updating #{hostname} with Zerigo"
+      puts Net::HTTP.get URI.parse path
+    end
+  end
+
+end
+
+config   = YAML.load File.read File.expand_path "~/.zerigo.yml"
+username = config["username"]
+password = config["password"]
+z        = Zerigo.new(username, password)
+
+config["hosts"].each do |host|
+  z.update_host host
+end
