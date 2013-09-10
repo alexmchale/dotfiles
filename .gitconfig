@@ -15,6 +15,7 @@
   cb = checkout -b
   s  = status --short --branch
   sn = status --short --branch --untracked=no
+  bc = difftool --dir-diff --find-renames
 
 [branch "master"]
   remote = origin
