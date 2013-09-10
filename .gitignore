@@ -44,6 +44,7 @@
 /.lesshst
 /.vim-fuf-data
 /.vim/bundle
+/.Xauthority
 
 # Local Configuration & Security
 
