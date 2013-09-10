@@ -147,6 +147,10 @@ else
   alias ls='ls --color=auto -Fh'
 fi
 
+### Add extra zsh configuration ###
+
+source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
 ### Configuration ###
 
 HISTFILE=~/.histfile
