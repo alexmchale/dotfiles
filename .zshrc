@@ -162,7 +162,7 @@ bindkey -e
 zstyle :compinstall filename '/Users/alexmchale/.zshrc'
 autoload -U compinit
 compinit -C
-PATH="/usr/local/bin:$HOME/.scripts:$PATH"
+PATH="/usr/local/bin:$HOME/.scripts:/usr/local/share/npm/bin/:$PATH"
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 
 ### Added by the Heroku Toolbelt
