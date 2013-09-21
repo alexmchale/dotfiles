@@ -51,3 +51,6 @@
 
 [merge]
   tool = Kaleidoscope
+
+[github]
+  user = alexmchale
