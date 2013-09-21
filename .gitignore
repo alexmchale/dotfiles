@@ -68,6 +68,7 @@
 /.launch-*/
 /.zerigo.yml
 /.zsh/secret.zsh
+/.gist-vim
 
 # Wine
 
@@ -84,3 +85,4 @@
 /.gem
 /.cpanm
 /.node-gyp
+/.bundle

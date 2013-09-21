@@ -151,6 +151,12 @@ fi
 
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+### Include ~/.zsh/secret.zsh if it exists ###
+
+if [ -f "$HOME/.zsh/secret.zsh" ]; then
+  source ~/.zsh/secret.zsh
+fi
+
 ### Configuration ###
 
 HISTFILE=~/.histfile
