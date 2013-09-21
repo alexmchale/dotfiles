@@ -67,6 +67,7 @@
 /.autobahn
 /.launch-*/
 /.zerigo.yml
+/.zsh/secret.zsh
 
 # Wine
 
