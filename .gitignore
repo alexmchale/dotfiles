@@ -13,6 +13,7 @@
 /Pictures/
 /Public/
 /Virtual Machines/
+/VirtualBox VMs/
 /ownCloud/
 /src/
 /sync/
@@ -30,6 +31,7 @@
 /.sqlite_history
 /.sqlite_history
 /.histfile
+/.guard_history
 
 # Temporary Files
 
