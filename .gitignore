@@ -88,3 +88,5 @@
 /.cpanm
 /.node-gyp
 /.bundle
+.gnupg
+.titan_attacks/
