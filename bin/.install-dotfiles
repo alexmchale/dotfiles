@@ -37,13 +37,13 @@ cd alexmchale-dotfiles
 announce "cleaning up home directory"
 
 for file in .* *; do
-  rm -rf ~/$file
+  rm -rf "$HOME/$file"
 done
 
 announce "installing dotfiles"
 
 for file in .* *; do
-  cp -rf "$file" ~/
+  cp -rf "$file" "$HOME/$file"
 done
 
 announce "removing cloned dotfiles repository"
@@ -53,5 +53,6 @@ rm -rf alexmchale-dotfiles
 
 announce "preparing submodules"
 
+cd "$HOME"
 git submodule init
 git submodule update
