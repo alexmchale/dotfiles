@@ -50,3 +50,8 @@ announce "removing cloned dotfiles repository"
 
 cd /tmp
 rm -rf alexmchale-dotfiles
+
+announce "preparing submodules"
+
+git submodule init
+git submodule update
