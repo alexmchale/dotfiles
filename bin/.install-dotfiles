@@ -1,0 +1,52 @@
+#!/bin/bash
+
+set -e
+
+export         CLEAR="\033[00m"
+export           RED="\033[0;31m"
+export     LIGHT_RED="\033[1;31m"
+export         GREEN="\033[0;32m"
+export   LIGHT_GREEN="\033[1;32m"
+export         GREEN="\033[0;32m"
+export   LIGHT_GREEN="\033[1;32m"
+export        YELLOW="\033[0;33m"
+export  LIGHT_YELLOW="\033[1;33m"
+export          BLUE="\033[0;34m"
+export    LIGHT_BLUE="\033[1;34m"
+export       MAGENTA="\033[0;35m"
+export LIGHT_MAGENTA="\033[1;35m"
+export         WHITE="\033[1;37m"
+export    LIGHT_GRAY="\033[0;37m"
+
+export    GLOBIGNORE=". .."
+
+function announce () {
+  local message="$*"
+  echo
+  echo -e "  $MAGENTA--->$CLEAR  $YELLOW$message$CLEAR"
+  echo
+}
+
+announce "cloning dotfiles repository"
+
+cd /tmp
+rm -rf alexmchale-dotfiles
+git clone git@github.com:alexmchale/dotfiles.git alexmchale-dotfiles
+cd alexmchale-dotfiles
+
+announce "cleaning up home directory"
+
+for file in .* *; do
+  rm -rf ~/$file
+done
+
+announce "installing dotfiles"
+
+for file in .* *; do
+  cp -r "$file" ~/
+done
+
+announce "removing cloned dotfiles repository"
+
+cd /tmp
+rm -rf alexmchale-dotfiles
