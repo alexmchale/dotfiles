@@ -43,7 +43,7 @@ done
 announce "installing dotfiles"
 
 for file in .* *; do
-  cp -r "$file" ~/
+  cp -rf "$file" ~/
 done
 
 announce "removing cloned dotfiles repository"
