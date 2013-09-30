@@ -1,7 +1,9 @@
-#!/usr/bin/ruby
+#!/usr/bin/env ruby
 
+require "rubygems"
 require "net/http"
 require "yaml"
+require "curl"
 
 class Zerigo
 
@@ -18,7 +20,7 @@ class Zerigo
 
     if last_ip != @current_ip
       puts "====> Updating #{hostname} with Zerigo"
-      puts Net::HTTP.get URI.parse path
+      puts Curl.get(path).body_str
     end
   end
 

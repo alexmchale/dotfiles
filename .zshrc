@@ -106,7 +106,7 @@ function rails {
 ### Hooks ###
 
 function precmd {
-  export PROMPT="%F{blue}[%F{green}%m %F{yellow}%~%F{blue}]$ %F{none}"
+  export PROMPT="%F{blue}[%F{green}%m %F{yellow}%~%F{blue}]$%F{none} "
   #export PROMPT="%F{yellow}%~%F{blue}> %F{none}"
   #export RPROMPT="%m $(rprompt_details)"
 }
