@@ -52,12 +52,17 @@ Bundle 'tsaleh/vim-matchit'
 Bundle '2072/PHP-Indenting-for-VIm'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'mileszs/ack.vim'
+Bundle 'solars/github-vim'
+Bundle 'vim-ruby/vim-ruby'
 filetype plugin indent on
 
 " Disable all bells
 set vb t_vb=""
 autocmd VimEnter * set vb t_vb=
 au! GuiEnter * set vb t_vb=
+
+" Open on github with `o
+nnoremap <C-g> :!echo `git url`/blob/`git rev-parse --abbrev-ref HEAD`/%\#L<C-R>=line('.')<CR> \| xargs open<CR><CR>
 
 " Automatically strip whitespace when saving
 "autocmd BufWritePre * :%s/\s\+$//e
