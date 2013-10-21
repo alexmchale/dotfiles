@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -e
+
+SEARCH="$1"
+REPLACEMENT="$2"
+
+perl -p -i -e "s/$SEARCH/$REPLACEMENT/g" $( ack --nofollow --files-with-matches "$SEARCH" )
