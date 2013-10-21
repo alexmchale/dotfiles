@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+# Get the absolute path to a given list of files.
+
+ARGV.each do |arg|
+  puts File.expand_path(arg)
+end
