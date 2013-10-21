@@ -1,8 +1,8 @@
 # Enable full keyboard access for all controls (e.g. enable Tab in modal dialogs)
 defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 
-# Enable the 2D Dock
-defaults write com.apple.dock no-glass -bool true
+# Disable the 2D Dock
+defaults write com.apple.dock no-glass -bool false
 
 # Disable menu bar transparency
 defaults write -g AppleEnableMenuBarTransparency -bool false
@@ -63,6 +63,10 @@ defaults write com.apple.QuickTimePlayerX NSQuitAlwaysKeepsWindows -bool false
 defaults write com.google.Chrome NSQuitAlwaysKeepsWindows -bool false
 defaults write com.apple.Terminal NSQuitAlwaysKeepsWindows -bool false
 
+# Disable dock auto-hide delay
+defaults write com.apple.Dock autohide -boolean YES
+defaults write com.apple.Dock autohide-delay -float 0
+
 # Reset Launchpad
 rm ~/Library/Application\ Support/Dock/*.db
 
@@ -80,3 +84,9 @@ echo "0x08000100:0" > ~/.CFUserTextEncoding
 
 # Configure TextMate to open with Markdown by default.
 defaults write com.macromates.textmate OakDefaultLanguage 0A1D9874-B448-11D9-BD50-000D93B6E43C
+
+# Enable a faster key repeat.
+defaults write NSGlobalDomain KeyRepeat -int 0
+
+# Disable iCloud being the default for save dialogs.
+defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
