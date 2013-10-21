@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Shut down the database vm.
+
+echo "Halting database server ..."
+ssh root@db.local exec halt
+sleep 5
+"/Applications/VMware Fusion.app/Contents/Library/vmrun" stop "/Users/alexmchale/Virtual Machines/db.vmwarevm/db.vmx"
+sleep 2
+
+# Shut down the web vm.
+
+echo "Halting web server ..."
+ssh root@web.local exec halt
+sleep 5
+"/Applications/VMware Fusion.app/Contents/Library/vmrun" stop "/Users/alexmchale/Virtual Machines/web.vmwarevm/web.vmx"
+sleep 2
+
+# Restart OSX.
+
+osascript -e 'tell application "Finder" to restart'
