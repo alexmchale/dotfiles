@@ -16,6 +16,7 @@
   s  = status --short --branch
   sn = status --short --branch --untracked=no
   bc = difftool --dir-diff --find-renames
+  url =! bash -c 'git config --get remote.origin.url | sed -E "s/.+:\\(.+\\)\\.git$/https:\\\\/\\\\/github\\\\.com\\\\/\\\\1/g"'
 
 [branch "master"]
   remote = origin
