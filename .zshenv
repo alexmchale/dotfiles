@@ -1,6 +1,3 @@
 export RBENV_ROOT="$HOME/.rbenv-osx"
 export PATH="$RBENV_ROOT/bin:$RBENV_ROOT/shims:$PATH"
 eval "$(rbenv init -)"
-
-export POW_TIMEOUT=1800
-export POW_WORKERS=5

@@ -86,7 +86,7 @@ echo "0x08000100:0" > ~/.CFUserTextEncoding
 defaults write com.macromates.textmate OakDefaultLanguage 0A1D9874-B448-11D9-BD50-000D93B6E43C
 
 # Enable a faster key repeat.
-defaults write NSGlobalDomain KeyRepeat -int 0
+defaults write NSGlobalDomain KeyRepeat -int 1
 
 # Disable iCloud being the default for save dialogs.
 defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
