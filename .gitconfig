@@ -34,6 +34,12 @@
 [diff]
   tool = "BC3"
 
+[color "diff"]
+  meta = blue
+  frag = magenta
+  old = red
+  new = green
+
 [core]
   editor = /usr/bin/vim
 
