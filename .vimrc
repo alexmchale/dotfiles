@@ -27,9 +27,12 @@ set noincsearch
 set number
 set go-=rL
 set wildignore+=*.o,1.8.7,.git,*.obj
-set cursorline
 set scrolloff=10
 set modelines=5
+
+" set cursorline
+set nocursorline
+set nocursorcolumn
 
 " Vundle
 filetype off
@@ -50,7 +53,7 @@ Bundle 'tpope/vim-vividchalk'
 Bundle 'tsaleh/vim-align'
 Bundle 'tsaleh/vim-matchit'
 Bundle '2072/PHP-Indenting-for-VIm'
-Bundle 'airblade/vim-gitgutter'
+"Bundle 'airblade/vim-gitgutter'
 Bundle 'mileszs/ack.vim'
 Bundle 'solars/github-vim'
 Bundle 'vim-ruby/vim-ruby'
