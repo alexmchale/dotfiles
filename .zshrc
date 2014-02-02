@@ -138,6 +138,7 @@ alias t-all="clear && prepare-test-db && t && cuke"
 alias tt='tt++ ~/.tintinrc'
 alias vim-migration="vim \`git status -s db/migrate | cut -b 4-\`"
 alias pwgen='curl -k -3 https://mail.drh.net/cgi-bin/get_password.cgi'
+alias rspec-modified="bundle exec rspec \`git status --untracked-files --porcelain | grep '_spec.rb$' | cut -b 4-\`"
 
 ### Use GNU ls if it's available ###
 
