@@ -157,3 +157,4 @@ highlight clear SignColumn
 au BufReadPost Gemfile set syntax=ruby
 au BufReadPost Rakefile set syntax=ruby
 au BufReadPost *.task set syntax=ruby
+au BufRead,BufNewFile *.csvbuilder setfiletype ruby
