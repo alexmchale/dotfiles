@@ -44,10 +44,10 @@
   editor = /usr/bin/vim
 
 [push]
-  default = upstream
+  default = simple
 
 [pull]
-  default = upstream
+  default = simple
 
 [mergetool "Kaleidoscope"]
   cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
