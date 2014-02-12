@@ -158,3 +158,6 @@ au BufReadPost Gemfile set syntax=ruby
 au BufReadPost Rakefile set syntax=ruby
 au BufReadPost *.task set syntax=ruby
 au BufRead,BufNewFile *.csvbuilder setfiletype ruby
+
+" Tell Ack.vim to use Ag instead of Ack
+let g:ackprg = 'ag --nogroup --nocolor --column'
