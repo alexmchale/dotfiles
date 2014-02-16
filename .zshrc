@@ -127,7 +127,7 @@ alias fvim='mvim -S ~/.vim/fullscreen.vim'
 alias gemi='ruby -S gem install --no-ri --no-rdoc --remote'
 alias gems='ruby -S gem search --remote'
 alias gemu='ruby -S gem uninstall --all --executables'
-alias gls="git log --pretty=oneline"
+alias gls='git log --format="%Cred%h %Cgreen%s%Cblue%d"'
 alias gs='git s'
 alias la="ls -a"
 alias ll='ls -l'
@@ -139,6 +139,7 @@ alias tt='tt++ ~/.tintinrc'
 alias vim-migration="vim \`git status -s db/migrate | cut -b 4-\`"
 alias pwgen='curl -k -3 https://mail.drh.net/cgi-bin/get_password.cgi'
 alias rspec-modified="bundle exec rspec \`git status --untracked-files --porcelain | grep '_spec.rb$' | cut -b 4-\`"
+alias ag='ag --pager="less -r -X -F"'
 
 ### Use GNU ls if it's available ###
 
@@ -172,3 +173,4 @@ compinit -C
 export PATH="/usr/local/heroku/bin:$HOME/bin:$HOME/.git-extras/bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:$PATH"
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 export PGHOST="/var/pgsql_socket"
+bindkey \^U backward-kill-line
