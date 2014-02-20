@@ -10,17 +10,14 @@ if [ "`uname`" = "Linux" ]; then
 fi
 
 # Install rbenv shims.
-eval "$(rbenv init -)"
+if which rbenv > /dev/null 2>&1; then
+  eval "$(rbenv init -)"
+fi
 
 # Configure environment options.
 export EDITOR="vim"
 export GEM_PRIVATE_KEY="$HOME/.ssh/gem-private_key.pem"
 export GEM_CERTIFICATE_CHAIN="$HOME/.ssh/gem-public_cert.pem"
-export RUBY_HEAP_MIN_SLOTS=1000000
-export RUBY_HEAP_SLOTS_INCREMENT=1000000
-export RUBY_HEAP_SLOTS_GROWTH_FACTOR=1
-export RUBY_GC_MALLOC_LIMIT=1000000000
-export RUBY_HEAP_FREE_MIN=500000
 
 # Load privaterc if it is available.
 [[ -s "$HOME/.privaterc" ]] && source "$HOME/.privaterc"

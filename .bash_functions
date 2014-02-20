@@ -49,7 +49,9 @@ function rvm_prompt {
 }
 
 function rbenv_prompt {
-  rbenv version | cut -d' ' -f1
+  if which rbenv > /dev/null 2>&1; then
+    rbenv version | cut -d' ' -f1
+  fi
 }
 
 # Move up the directory tree until we're in the root of a git project.
