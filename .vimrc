@@ -29,6 +29,7 @@ set go-=rL
 set wildignore+=*.o,1.8.7,.git,*.obj
 set scrolloff=10
 set modelines=5
+set laststatus=2
 
 " set cursorline
 set nocursorline
@@ -57,6 +58,7 @@ Bundle '2072/PHP-Indenting-for-VIm'
 Bundle 'mileszs/ack.vim'
 Bundle 'solars/github-vim'
 Bundle 'vim-ruby/vim-ruby'
+Bundle 'bling/vim-airline'
 filetype plugin indent on
 
 " Disable all bells
@@ -161,3 +163,5 @@ au BufRead,BufNewFile *.csvbuilder setfiletype ruby
 
 " Tell Ack.vim to use Ag instead of Ack
 let g:ackprg = 'ag --nogroup --nocolor --column'
+
+let g:airline_inactive_collapse=1
