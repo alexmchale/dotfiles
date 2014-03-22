@@ -7,10 +7,11 @@ set -o errexit
 # Install tools if possible.
 if which yum; then
   sudo yum -y install vim wget unzip git
+  sudo rpm -i 'http://swiftsignal.com/packages/centos/6/x86_64/the-silver-searcher-0.14-1.el6.x86_64.rpm'
 elif which apt-get; then
-  sudo apt-get -y install vim wget unzip git
+  sudo apt-get -y install vim wget unzip git silversearcher-ag
 elif which brew; then
-  brew install vim wget unzip git
+  brew install vim wget unzip git the_silver_searcher
 fi
 
 # Prepare where we'll download the VIM files.
