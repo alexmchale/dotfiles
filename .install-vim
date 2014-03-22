@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Be verbose, exit on failure.
+set -o verbose
+set -o errexit
+
+# Install tools if possible.
+if which yum; then
+  sudo yum -y install vim wget
+elif which apt-get; then
+  sudo apt-get -y install vim wget
+elif which brew; then
+  brew install vim wget
+fi
+
+# Prepare where we'll download the VIM files.
+rm -rf /tmp/dotfiles-master* ~/.vimrc ~/.vim
+cd /tmp
+
+# Grab Alex's dotfiles.
+wget 'https://github.com/alexmchale/dotfiles/archive/master.zip' -O dotfiles-master.zip
+
+# Install the files we want.
+unzip dotfiles-master.zip
+cd dotfiles-master
+cp -R .vimrc .vim ~/
+
+# Clean up.
+cd ~
+rm -rf /tmp/dotfiles-master*
