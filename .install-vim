@@ -6,11 +6,11 @@ set -o errexit
 
 # Install tools if possible.
 if which yum; then
-  sudo yum -y install vim wget unzip
+  sudo yum -y install vim wget unzip git
 elif which apt-get; then
-  sudo apt-get -y install vim wget unzip
+  sudo apt-get -y install vim wget unzip git
 elif which brew; then
-  brew install vim wget unzip
+  brew install vim wget unzip git
 fi
 
 # Prepare where we'll download the VIM files.
