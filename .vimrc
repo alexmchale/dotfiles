@@ -52,7 +52,7 @@ Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-vividchalk'
 Bundle 'tsaleh/vim-align'
-Bundle 'tsaleh/vim-matchit'
+Bundle 'tmhedberg/matchit'
 Bundle '2072/PHP-Indenting-for-VIm'
 Bundle 'mileszs/ack.vim'
 Bundle 'solars/github-vim'
@@ -125,6 +125,7 @@ nmap <S-p> :MRU<CR>
 
 " Editing
 nmap <C-i> ciw
+vmap <C-i> c
 
 " Configure tag list
 let Tlist_Use_Right_Window = 1
