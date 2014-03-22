@@ -28,3 +28,6 @@ cp -R .vimrc .vim ~/
 # Clean up.
 cd ~
 rm -rf /tmp/dotfiles-master*
+
+# Install our Vundled packages.
+vim '+BundleInstall'
