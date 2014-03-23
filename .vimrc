@@ -58,6 +58,7 @@ Bundle 'mileszs/ack.vim'
 Bundle 'solars/github-vim'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'bling/vim-airline'
+Bundle 'mustache/vim-mustache-handlebars'
 filetype plugin indent on
 
 " Disable all bells
