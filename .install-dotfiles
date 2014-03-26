@@ -6,7 +6,7 @@ set -o errexit
 
 # Clone the repository.
 cd "$HOME"
-git clone git@github.com:alexmchale/dotfiles.git dotfiles.git
+git clone https://github.com/alexmchale/dotfiles.git dotfiles.git
 
 # Move the files from the repo into $HOME.
 mv .* * "$HOME"
