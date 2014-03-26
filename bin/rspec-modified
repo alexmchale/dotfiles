@@ -1,0 +1,17 @@
+#!/bin/bash
+
+candidates=$( git status --untracked-files --porcelain | grep '_spec.rb$' | cut -b 4- | egrep -o '^[^ ]+' )
+result=""
+
+for file in $candidates; do
+  if [ -f "$file" ]; then
+    result="$result $file"
+  fi
+done
+
+if [ -z "$result" ]; then
+  echo "no modified rspec files found"
+  exit 0
+fi
+
+bundle exec rspec $result
