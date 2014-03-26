@@ -11,9 +11,7 @@ git clone https://github.com/alexmchale/dotfiles.git dotfiles.git
 
 # Move the files from the repo into $HOME.
 for file in .* *; do
-  if [ "$file" = "." ] || [ "$file" = ".." ]; then
-    # Don't deal with the local paths.
-  else
+  if [ "$file" != "." ] && [ "$file" != ".." ]; then
     rm -rf "$HOME/$file"
     mv "$file" "$HOME/"
   fi
