@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Be verbose, exit on failure.
+set -o verbose
+set -o errexit
+
+# Clone the repository.
+cd "$HOME"
+git clone git@github.com:alexmchale/dotfiles.git dotfiles.git
+
+# Move the files from the repo into $HOME.
+mv .* * "$HOME"
+
+# Remove the cloned path.
+cd "$HOME"
+rm -rf dotfiles.git
