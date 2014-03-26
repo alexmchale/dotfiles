@@ -120,8 +120,8 @@ map ; :
 nmap <C-n> :qa!<CR>
 nmap <C-m> :n<CR>
 nmap <C-y> :NERDTreeToggle<CR>
-nmap <C-u> :NERDTreeMirror<CR>
 nmap <S-p> :MRU<CR>
+nmap <C-u> :set invpaste<CR>
 
 " Editing
 nmap <C-i> ciw
