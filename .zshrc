@@ -1,14 +1,6 @@
 ### Configure rbenv shims ###
 
-if [ "`uname -s`" = "Darwin" ]; then
-  export RBENV_ROOT="$HOME/.rbenv-osx"
-  export PATH="$RBENV_ROOT/bin:$RBENV_ROOT/shims:$PATH"
-  eval "$(rbenv init -)"
-elif [ "`uname -s`" = "Linux" ]; then
-  export RBENV_ROOT="$HOME/.rbenv-linux"
-  export PATH="$RBENV_ROOT/bin:$RBENV_ROOT/shims:$PATH"
-  eval "$(rbenv init -)"
-fi
+eval "$(rbenv init -)"
 
 ### Functions ###
 
@@ -139,7 +131,8 @@ alias ssh-drh="ssh -t amchale@vpn.drh.net exec sudo /usr/bin/ssh -i /home/greena
 alias t-all="clear && prepare-test-db && t && cuke"
 alias tt='tt++ ~/.tintinrc'
 alias vim-migration="vim \`git status -s db/migrate | cut -b 4-\`"
-alias pwgen='curl -k -3 https://mail.drh.net/cgi-bin/get_password.cgi'
+alias pwgen='curl -k -2 https://mail.drh.net/cgi-bin/get_password.cgi'
+alias rspec-modified="bundle exec rspec \`git status --untracked-files --porcelain | grep '_spec.rb$' | cut -b 4-\`"
 alias ag='ag --pager="less -r -X -F"'
 
 ### Use GNU ls if it's available ###
@@ -173,5 +166,4 @@ autoload -U compinit
 compinit -C
 export PATH="$HOME/src/drh/greenarrow-tools/bin:/usr/local/heroku/bin:$HOME/bin:$HOME/.git-extras/bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:$PATH"
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
-export PGHOST="/var/pgsql_socket"
 bindkey \^U backward-kill-line
