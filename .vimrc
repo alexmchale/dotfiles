@@ -58,6 +58,8 @@ Bundle 'solars/github-vim'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'bling/vim-airline'
 Bundle 'mustache/vim-mustache-handlebars'
+Bundle 'danro/rename.vim'
+Bundle 'jtratner/vim-flavored-markdown'
 filetype plugin indent on
 
 " Disable all bells
@@ -161,7 +163,21 @@ au BufReadPost Rakefile set syntax=ruby
 au BufReadPost *.task set syntax=ruby
 au BufRead,BufNewFile *.csvbuilder setfiletype ruby
 
+" Use GitHub Flavored Markdown syntax highlighting.
+augroup markdown
+  au!
+  au BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
+augroup END
+
 " Tell Ack.vim to use Ag instead of Ack
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
+" Enable spell-check for Markdown files
+autocmd BufRead,BufNewFile *.md,*.markdown setlocal spell
+
 let g:airline_inactive_collapse=1
+
+highlight DiffAdd cterm=none ctermfg=Black ctermbg=83 gui=none guifg=Black guibg=#ddffdd
+highlight DiffDelete cterm=none ctermfg=Black ctermbg=1 gui=none guifg=Black guibg=#ffdddd
+highlight DiffChange cterm=none ctermfg=Black ctermbg=192 gui=none guifg=Black guibg=#ffffdd
+highlight DiffText cterm=none ctermfg=Black ctermbg=184 gui=none guifg=Black guibg=Magenta
