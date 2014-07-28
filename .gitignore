@@ -91,3 +91,6 @@
 /.bundle
 .gnupg
 .titan_attacks/
+.htoprc
+.CloudStation
+.NERDTreeBookmarks
