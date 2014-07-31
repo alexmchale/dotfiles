@@ -167,3 +167,7 @@ compinit -C
 export PATH="$HOME/src/drh/greenarrow-tools/bin:/usr/local/heroku/bin:$HOME/bin:$HOME/.git-extras/bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:$PATH"
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 bindkey \^U backward-kill-line
+
+### Display archey if available ###
+
+archey --color 2> /dev/null
