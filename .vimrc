@@ -60,6 +60,7 @@ Bundle 'bling/vim-airline'
 Bundle 'mustache/vim-mustache-handlebars'
 Bundle 'danro/rename.vim'
 Bundle 'jtratner/vim-flavored-markdown'
+Bundle 'slim-template/vim-slim'
 filetype plugin indent on
 
 " Disable all bells
