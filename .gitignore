@@ -98,3 +98,7 @@
 .zsh/secrets.zsh
 .swt
 .CloudStation
+.drh-ci.yml
+.mozilla
+.mplayer
+.password-store
