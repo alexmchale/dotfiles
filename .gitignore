@@ -94,3 +94,7 @@
 .htoprc
 .CloudStation
 .NERDTreeBookmarks
+.pgpass
+.zsh/secrets.zsh
+.swt
+.CloudStation
