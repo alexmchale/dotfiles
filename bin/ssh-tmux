@@ -1,0 +1,3 @@
+#!/bin/bash
+
+exec ssh -t $* -- exec tmux -2 attach
