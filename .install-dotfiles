@@ -8,6 +8,7 @@ set -o errexit
 cd "$HOME"
 rm -rf dotfiles.git
 git clone https://github.com/alexmchale/dotfiles.git dotfiles.git
+cd dotfiles.git
 
 # Move the files from the repo into $HOME.
 for file in .* *; do
