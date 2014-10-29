@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Install Homebrew
+if ! which brew &> /dev/null; then
+  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+fi
+
+# Install Dependency Packages
+brew install --link coreutils git rbenv ruby-build
+
+# Install Vim Packages
+vim '+BundleInstall'
