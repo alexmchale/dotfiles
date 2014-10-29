@@ -126,7 +126,6 @@ alias gs='git s'
 alias la="ls -a"
 alias ll='ls -l'
 alias mvim-merge-conflicts="grep -l -r '<<<<<<<' $GREP_SEARCH_PATH | xargs grep -l -r '>>>>>>>' | xargs grep -l -r '=======' | xargs mvim -p"
-alias pg="psql greenarrow-studio_development"
 alias ssh-drh="ssh -t amchale@vpn.drh.net exec sudo /usr/bin/ssh -i /home/greenarrow_rw/.ssh/id_rsa"
 alias t-all="clear && prepare-test-db && t && cuke"
 alias tt='tt++ ~/.tintinrc'
@@ -164,7 +163,7 @@ bindkey -e
 zstyle :compinstall filename '/Users/alexmchale/.zshrc'
 autoload -U compinit
 compinit -C
-export PATH="$HOME/src/drh/greenarrow-tools/bin:/usr/local/heroku/bin:$HOME/bin:$HOME/.git-extras/bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:$PATH"
+export PATH="$HOME/src/drh/tools/bin:$HOME/bin:$HOME/.git-extras/bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:$PATH"
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 bindkey \^U backward-kill-line
 
