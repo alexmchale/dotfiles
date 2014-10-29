@@ -1,9 +1,6 @@
 # Enable full keyboard access for all controls (e.g. enable Tab in modal dialogs)
 defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 
-# Disable the 2D Dock
-defaults write com.apple.dock no-glass -bool false
-
 # Disable menu bar transparency
 defaults write -g AppleEnableMenuBarTransparency -bool false
 
@@ -16,9 +13,6 @@ defaults write -g PMPrintingExpandedStateForPrint -bool true
 # Disable shadow in screenshots
 defaults write com.apple.screencapture disable-shadow -bool true
 
-# Enable highlight hover effect for the grid view of a stack (Dock)
-defaults write com.apple.dock mouse-over-hilte-stack -bool true
-
 # Enable spring loading for all Dock items
 defaults write enable-spring-load-actions-on-all-items -bool true
 
@@ -29,7 +23,7 @@ defaults write -g ApplePressAndHoldEnabled -bool false
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 
 # Disable window animations
-defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false
+#defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false
 
 # Disable disk image verification
 defaults write com.apple.frameworks.diskimages skip-verify -bool true
@@ -53,8 +47,8 @@ defaults write com.apple.Safari IncludeDebugMenu -bool true
 defaults write com.apple.Safari ProxiesInBookmarksBar "()"
 
 # Disable send and reply animations in Mail.app
-defaults write com.apple.Mail DisableReplyAnimations -bool true
-defaults write com.apple.Mail DisableSendAnimations -bool true
+#defaults write com.apple.Mail DisableReplyAnimations -bool true
+#defaults write com.apple.Mail DisableSendAnimations -bool true
 
 # Disable Resume system-wide
 defaults write com.apple.Safari NSQuitAlwaysKeepsWindows -bool false
@@ -66,6 +60,7 @@ defaults write com.apple.Terminal NSQuitAlwaysKeepsWindows -bool false
 # Disable dock auto-hide delay
 defaults write com.apple.Dock autohide -boolean YES
 defaults write com.apple.Dock autohide-delay -float 0
+defaults write com.apple.dock autohide-time-modifier -float 0.5
 
 # Reset Launchpad
 rm ~/Library/Application\ Support/Dock/*.db
