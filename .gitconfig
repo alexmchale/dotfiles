@@ -21,11 +21,14 @@
   m   = merge --no-ff
   c   = commit --edit --verbose
 
+[mergetool "Kaleidoscope"]
+  cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+  trustexitcode = true
+  path = /usr/local/bin
+
 [difftool "Kaleidoscope"]
   cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
-
-[difftool "BC3"]
-  #cmd = /Users/alexmchale/winediff \"$LOCAL\" \"$REMOTE\"
+  path = /usr/local/bin
 
 [difftool]
   prompt = false
@@ -48,20 +51,18 @@
 [pull]
   default = simple
 
-[mergetool "Kaleidoscope"]
-  cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
-  trustExitCode = true
-
 [mergetool]
   prompt = false
 
 [merge]
-  tool = Kaleidoscope
+  tool = "Kaleidoscope"
 
 [github]
   user = alexmchale
-[filter "media"]
-	clean = git-media-clean %f
-	smudge = git-media-smudge %f
+
 [git-up "bundler"]
-	check = true
+  check = true
+
+[filter "media"]
+  clean = git-media-clean %f
+  smudge = git-media-smudge %f
