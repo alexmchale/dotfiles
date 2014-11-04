@@ -163,9 +163,10 @@ bindkey -e
 zstyle :compinstall filename '/Users/alexmchale/.zshrc'
 autoload -U compinit
 compinit -C
-export PATH="$HOME/src/drh/tools/bin:$HOME/bin:$HOME/.git-extras/bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:$PATH"
+export PATH="/Applications/RubyEncoder.app/Contents/MacOS:$HOME/src/drh/tools/bin:$HOME/bin:$HOME/.git-extras/bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:$PATH"
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 bindkey \^U backward-kill-line
+export EDITOR="vim"
 
 ### Display archey if available ###
 
