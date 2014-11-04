@@ -61,6 +61,8 @@ Bundle 'mustache/vim-mustache-handlebars'
 Bundle 'danro/rename.vim'
 Bundle 'jtratner/vim-flavored-markdown'
 Bundle 'slim-template/vim-slim'
+Bundle 'nginx/nginx', { 'rtp': 'contrib/vim' }
+Bundle 'scrooloose/syntastic'
 filetype plugin indent on
 
 " Disable all bells
@@ -84,7 +86,7 @@ vmap <C-o> :s/\s\+$//e<CR>:s/\r//e<CR>:s/\t/  /e<CR>:w<CR>
 nmap <C-o> :%s/\s\+$//e<CR>:%s/\r//e<CR>:%s/\t/  /e<CR>:w<CR>
 
 if has("gui_running")
-  set guifont=Inconsolata:h16
+  set guifont=Input\ Mono:h16
   set showtabline=2
   set guioptions-=T
   set background=dark
@@ -182,3 +184,11 @@ highlight DiffAdd cterm=none ctermfg=Black ctermbg=83 gui=none guifg=Black guibg
 highlight DiffDelete cterm=none ctermfg=Black ctermbg=1 gui=none guifg=Black guibg=#ffdddd
 highlight DiffChange cterm=none ctermfg=Black ctermbg=192 gui=none guifg=Black guibg=#ffffdd
 highlight DiffText cterm=none ctermfg=Black ctermbg=184 gui=none guifg=Black guibg=Magenta
+
+" Enable RuboCop if available
+:let g:syntastic_ruby_checkers = ['rubocop', 'mri']
+
+" Custom key bindings
+nmap \l :setlocal number!<CR>
+nmap \p :set paste!<CR>
+nmap \c :SyntasticCheck<CR>
