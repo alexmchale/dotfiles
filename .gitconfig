@@ -31,7 +31,7 @@
   prompt = false
 
 [diff]
-  tool = "BC3"
+  tool = "Kaleidoscope"
 
 [color "diff"]
   meta = blue

@@ -103,3 +103,7 @@
 .mplayer
 .password-store
 .subversion
+.dosprogs
+.cpanplus
+.atom
+/.cpan
