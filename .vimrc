@@ -191,4 +191,8 @@ highlight DiffText cterm=none ctermfg=Black ctermbg=184 gui=none guifg=Black gui
 " Custom key bindings
 nmap \l :setlocal number!<CR>
 nmap \p :set paste!<CR>
-nmap \c :SyntasticCheck<CR>
+nmap \r :SyntasticCheck<CR>
+nmap \v :set paste<CR>:r !pbpaste<CR>:set nopaste<CR>
+imap \v <Esc>:set paste<CR>:r !pbpaste<CR>:set nopaste<CR>
+nmap \c :.w !pbcopy<CR><CR>
+vmap \c :w !pbcopy<CR><CR>
