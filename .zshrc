@@ -98,9 +98,15 @@ function rails {
 ### Hooks ###
 
 function precmd {
-  export PROMPT="%F{blue}[%F{green}%m %F{yellow}%~%F{blue}]$%F{none} "
-  #export PROMPT="%F{yellow}%~%F{blue}> %F{none}"
-  #export RPROMPT="%m $(rprompt_details)"
+  PREV_RET_VAL=$?
+
+  export PROMPT="%F{green}%m %F{yellow}%~%F{blue}"
+
+  if test $PREV_RET_VAL -eq 0; then
+    export PROMPT="$PROMPT %F{blue}→%F{none} "
+  else
+    export PROMPT="$PROMPT %F{red}→%F{none} "
+  fi
 }
 
 ### Aliases ###
