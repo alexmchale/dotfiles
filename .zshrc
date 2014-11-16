@@ -102,7 +102,7 @@ function precmd {
 
   export PROMPT="%F{green}%m %F{yellow}%~%F{blue}"
 
-  if test $PREV_RET_VAL -eq 0; then
+  if [ $PREV_RET_VAL -eq 0 ] || [ -z "$PREV_RET_VAL" ]; then
     export PROMPT="$PROMPT %F{blue}→%F{none} "
   else
     export PROMPT="$PROMPT %F{red}→%F{none} "
