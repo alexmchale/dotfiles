@@ -81,12 +81,8 @@ nnoremap <C-g> :!echo `git url`/blob/`git rev-parse --abbrev-ref HEAD`/%\#L<C-R>
 " Show end of line whitespace as an error
 match ErrorMsg / \+$/
 
-" Whitespace cleaning and saving
-vmap <C-o> :s/\s\+$//e<CR>:s/\r//e<CR>:s/\t/  /e<CR>:w<CR>
-nmap <C-o> :%s/\s\+$//e<CR>:%s/\r//e<CR>:%s/\t/  /e<CR>:w<CR>
-
 if has("gui_running")
-  set guifont=Input\ Mono:h16
+  set guifont=InputMono\ Light:h16
   set showtabline=2
   set guioptions-=T
   set background=dark
@@ -125,12 +121,17 @@ map ; :
 nmap <C-n> :qa!<CR>
 nmap <C-m> :n<CR>
 nmap <C-y> :NERDTreeToggle<CR>
-nmap <S-p> :MRU<CR>
+nmap <C-o> :MRU<CR>
+nmap <C-p> :CtrlP<CR>
 nmap <C-u> :set invpaste<CR>
 
 " Editing
 nmap <C-i> ciw
 vmap <C-i> c
+
+" Whitespace cleaning and saving
+vmap \w :s/\s\+$//e<CR>:s/\r//e<CR>:s/\t/  /e<CR>:w<CR>
+nmap \w :%s/\s\+$//e<CR>:%s/\r//e<CR>:%s/\t/  /e<CR>:w<CR>
 
 " Configure tag list
 let Tlist_Use_Right_Window = 1
@@ -186,13 +187,13 @@ highlight DiffChange cterm=none ctermfg=Black ctermbg=192 gui=none guifg=Black g
 highlight DiffText cterm=none ctermfg=Black ctermbg=184 gui=none guifg=Black guibg=Magenta
 
 " Enable RuboCop if available
-:let g:syntastic_ruby_checkers = ['rubocop', 'mri']
+let g:syntastic_ruby_checkers = ['rubocop', 'mri']
 
-" Custom key bindings
+" Custom key bindings **
 nmap \l :setlocal number!<CR>
-nmap \p :set paste!<CR>
+"nmap \p :set paste!<CR>
 nmap \r :SyntasticCheck<CR>
 nmap \v :set paste<CR>:r !pbpaste<CR>:set nopaste<CR>
-imap \v <Esc>:set paste<CR>:r !pbpaste<CR>:set nopaste<CR>
+imap \v <Esc>:set paste<CR>m'a<C-R>=system('pbpaste')<CR><Esc>:set nopaste<CR>a
 nmap \c :.w !pbcopy<CR><CR>
-vmap \c :w !pbcopy<CR><CR>
+vmap \c :<Esc>`>a<CR><Esc>mx`<i<CR><Esc>my'xk$v'y!pbcopy<CR>u
