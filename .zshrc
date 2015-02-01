@@ -173,6 +173,10 @@ export PATH="/Applications/RubyEncoder.app/Contents/MacOS:$HOME/src/drh/tools/bi
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 bindkey \^U backward-kill-line
 export EDITOR="vim"
+autoload -z edit-command-line
+zle -N edit-command-line
+bindkey "^X^E" edit-command-line
+export GOPATH="$HOME/src/go"
 
 ### Display archey if available ###
 

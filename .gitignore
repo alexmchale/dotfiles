@@ -107,3 +107,5 @@
 .cpanplus
 .atom
 /.cpan
+.grip
+.fontconfig

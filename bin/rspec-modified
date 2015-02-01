@@ -14,4 +14,8 @@ if [ -z "$result" ]; then
   exit 0
 fi
 
-bundle exec rspec $result
+if [ -f bin/rspec ]; then
+  bin/rspec $result
+else
+  bundle exec rspec $result
+fi

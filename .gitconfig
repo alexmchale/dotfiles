@@ -20,6 +20,7 @@
   p   = pull --rebase
   m   = merge --no-ff
   c   = commit --edit --verbose
+  lgh = log --date=\"short\" --format=\"%Credhttps://github.com/drhinternet/greenarrow-studio/commit/%H %Cgreen%s%Cblue%d %Cred(%aN %ad)\"
 
 [mergetool "Kaleidoscope"]
   cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
@@ -64,5 +65,6 @@
   check = true
 
 [filter "media"]
-  clean = git-media-clean %f
-  smudge = git-media-smudge %f
+	clean = git media clean %f
+	smudge = git media smudge %f
+	required = true
