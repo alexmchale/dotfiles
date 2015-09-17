@@ -37,32 +37,38 @@ set nocursorcolumn
 
 " Vundle
 filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-Bundle 'mattn/webapi-vim'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'kien/ctrlp.vim'
-Bundle 'mattn/gist-vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'tpope/vim-endwise'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-haml'
-Bundle 'tpope/vim-rails'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-vividchalk'
-Bundle 'tsaleh/vim-align'
-Bundle 'tmhedberg/matchit'
-Bundle '2072/PHP-Indenting-for-VIm'
-Bundle 'mileszs/ack.vim'
-Bundle 'solars/github-vim'
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'bling/vim-airline'
-Bundle 'mustache/vim-mustache-handlebars'
-Bundle 'danro/rename.vim'
-Bundle 'jtratner/vim-flavored-markdown'
-Bundle 'slim-template/vim-slim'
-Bundle 'nginx/nginx', { 'rtp': 'contrib/vim' }
-Bundle 'scrooloose/syntastic'
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'mattn/webapi-vim'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'kien/ctrlp.vim'
+Plugin 'mattn/gist-vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'tpope/vim-endwise'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-haml'
+Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-vividchalk'
+Plugin 'tsaleh/vim-align'
+Plugin 'tmhedberg/matchit'
+Plugin '2072/PHP-Indenting-for-VIm'
+Plugin 'mileszs/ack.vim'
+" Plugin 'solars/github-vim'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'bling/vim-airline'
+Plugin 'mustache/vim-mustache-handlebars'
+Plugin 'danro/rename.vim'
+Plugin 'jtratner/vim-flavored-markdown'
+Plugin 'slim-template/vim-slim'
+Plugin 'nginx/nginx', { 'rtp': 'contrib/vim' }
+Plugin 'Keithbsmiley/swift.vim'
+Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
+Plugin 'vim-scripts/mru.vim'
+Plugin 'sukima/xmledit'
+" Plugin 'scrooloose/syntastic'
+call vundle#end()
 filetype plugin indent on
 
 " Disable all bells
@@ -143,6 +149,7 @@ augroup mkd
 augroup END
 autocmd BufNewFile,BufRead *.lib set filetype=c
 autocmd BufEnter * stopinsert
+autocmd BufWritePre *.jsx :%s/class=/className=/e
 
 " Custom Highlighting
 highlight LineNr guifg=#777777 guibg=#202020 ctermfg=grey ctermbg=darkgrey
@@ -166,6 +173,7 @@ au BufReadPost Gemfile set syntax=ruby
 au BufReadPost Rakefile set syntax=ruby
 au BufReadPost *.task set syntax=ruby
 au BufRead,BufNewFile *.csvbuilder setfiletype ruby
+au BufRead,BufNewFile *.json.jbuilder set ft=ruby
 
 " Use GitHub Flavored Markdown syntax highlighting.
 augroup markdown
