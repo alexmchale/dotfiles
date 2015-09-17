@@ -11,7 +11,7 @@ if which yum; then
 elif which apt-get; then
   sudo apt-get -y install vim wget unzip git silversearcher-ag
 elif which brew; then
-  brew install vim wget unzip git the_silver_searcher
+  brew install vim wget git the_silver_searcher
 fi
 
 # Prepare where we'll download the VIM files.
