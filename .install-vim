@@ -2,7 +2,6 @@
 
 # Be verbose, exit on failure.
 set -o verbose
-set -o errexit
 
 # Install tools if possible.
 if which yum; then
@@ -15,10 +14,18 @@ elif which brew; then
 fi
 
 # Prepare where we'll download the VIM files.
-rm -rf /tmp/dotfiles-master* ~/.vimrc ~/.vim
+rm -rf /tmp/Vundle* /tmp/vundle-master* /tmp/dotfiles-master* ~/.vimrc ~/.vim
+
+# Install Vundle.
 cd /tmp
+wget 'https://github.com/VundleVim/Vundle.vim/archive/master.zip' -O vundle-master.zip
+unzip vundle-master.zip
+cd Vundle.vim-master/autoload
+mkdir -p ~/.vim/autoload
+cp -a * ~/.vim/autoload/
 
 # Grab Alex's dotfiles.
+cd /tmp
 wget 'https://github.com/alexmchale/dotfiles/archive/master.zip' -O dotfiles-master.zip
 
 # Install the files we want.
@@ -28,7 +35,7 @@ cp -R .vimrc .vim ~/
 
 # Clean up.
 cd ~
-rm -rf /tmp/dotfiles-master*
+rm -rf /tmp/vundle-master* /tmp/dotfiles-master*
 
 # Install our Vundled packages.
-vim '+BundleInstall'
+vim '+PluginInstall' '+PluginUpdate' '+qall'
