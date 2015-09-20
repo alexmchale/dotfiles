@@ -32,10 +32,10 @@
   path = /usr/local/bin
 
 [difftool]
-  prompt = false
+	prompt = false
 
 [diff]
-  tool = "Kaleidoscope"
+	tool = bc3
 
 [color "diff"]
   meta = blue
