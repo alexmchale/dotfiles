@@ -28,6 +28,7 @@ set number
 set go-=rL
 set wildignore+=*.o,1.8.7,.git,*.obj
 set scrolloff=10
+set modeline
 set modelines=5
 set laststatus=2
 
@@ -65,7 +66,7 @@ Plugin 'nginx/nginx', { 'rtp': 'contrib/vim' }
 Plugin 'Keithbsmiley/swift.vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
-Plugin 'vim-scripts/mru.vim'
+" Plugin 'vim-scripts/mru.vim'
 Plugin 'sukima/xmledit'
 " Plugin 'scrooloose/syntastic'
 call vundle#end()
@@ -127,7 +128,7 @@ map ; :
 nmap <C-n> :qa!<CR>
 nmap <C-m> :n<CR>
 nmap <C-y> :NERDTreeToggle<CR>
-nmap <C-o> :MRU<CR>
+nmap <C-o> :CtrlPMRU<CR>
 nmap <C-p> :CtrlP<CR>
 nmap <C-u> :set invpaste<CR>
 
