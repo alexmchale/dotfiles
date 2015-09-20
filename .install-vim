@@ -14,7 +14,7 @@ elif which brew; then
 fi
 
 # Prepare where we'll download the VIM files.
-rm -rf /tmp/Vundle* /tmp/vundle-master* /tmp/dotfiles-master* ~/.vimrc ~/.vim
+rm -rf /tmp/Vundle* /tmp/vundle-master* /tmp/dotfiles-master* ~/.vim*
 
 # Install Vundle.
 cd /tmp
@@ -24,11 +24,9 @@ cd Vundle.vim-master/autoload
 mkdir -p ~/.vim/autoload
 cp -a * ~/.vim/autoload/
 
-# Grab Alex's dotfiles.
+# Grab Alex's dotfiles, install the files related to VIM.
 cd /tmp
 wget 'https://github.com/alexmchale/dotfiles/archive/master.zip' -O dotfiles-master.zip
-
-# Install the files we want.
 unzip dotfiles-master.zip
 cd dotfiles-master
 cp -R .vimrc .vim ~/
@@ -38,4 +36,4 @@ cd ~
 rm -rf /tmp/vundle-master* /tmp/dotfiles-master*
 
 # Install our Vundled packages.
-vim '+PluginInstall' '+PluginUpdate' '+qall'
+vim '+PluginInstall' '+qall'
