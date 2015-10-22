@@ -1,6 +1,6 @@
 ### Configure rbenv shims ###
 
-eval "$(rbenv init -)"
+eval "$(/usr/local/bin/rbenv init -)"
 
 ### Functions ###
 
@@ -86,15 +86,6 @@ function tn {
   RAILS_ENV=test bundle exec turn -R -I test -n "$NAME" test/unit/ test/functional/
 }
 
-# Run rails using script/rails if it exists.
-function rails {
-  if [ -x script/rails ]; then
-    script/rails $*
-  else
-    /usr/bin/env rails $*
-  fi
-}
-
 ### Hooks ###
 
 function precmd {
@@ -169,7 +160,7 @@ bindkey -e
 zstyle :compinstall filename '/Users/alexmchale/.zshrc'
 autoload -U compinit
 compinit -C
-export PATH="/Applications/RubyEncoder.app/Contents/MacOS:$HOME/src/drh/tools/bin:$HOME/bin:$HOME/.git-extras/bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:$PATH"
+export PATH="/Users/alexmchale/pebble-dev/PebbleSDK-current/bin:/Applications/RubyEncoder.app/Contents/MacOS:$HOME/src/drh/tools/bin:$HOME/bin:$HOME/.git-extras/bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:$PATH"
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 bindkey \^U backward-kill-line
 export EDITOR="vim"
@@ -177,6 +168,8 @@ autoload -z edit-command-line
 zle -N edit-command-line
 bindkey "^X^E" edit-command-line
 export GOPATH="$HOME/src/go"
+setopt localoptions rmstarsilent
+
 
 ### Display archey if available ###
 
