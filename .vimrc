@@ -59,13 +59,14 @@ Plugin 'vim-ruby/vim-ruby'
 Plugin 'bling/vim-airline'
 Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'danro/rename.vim'
-Plugin 'jtratner/vim-flavored-markdown'
+" Plugin 'jtratner/vim-flavored-markdown'
 Plugin 'slim-template/vim-slim'
 Plugin 'Keithbsmiley/swift.vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
 " Plugin 'vim-scripts/mru.vim'
 Plugin 'sukima/xmledit'
+" Plugin 'gabrielelana/vim-markdown'
 " Plugin 'scrooloose/syntastic'
 call vundle#end()
 filetype plugin indent on
@@ -177,7 +178,7 @@ au BufRead,BufNewFile *.json.jbuilder set ft=ruby
 " Use GitHub Flavored Markdown syntax highlighting.
 augroup markdown
   au!
-  au BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
+  au BufNewFile,BufRead *.md,*.markdown setlocal filetype=markdown
 augroup END
 
 " Tell Ack.vim to use Ag instead of Ack
