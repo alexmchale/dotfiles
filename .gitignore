@@ -120,3 +120,4 @@ mnt
 .docker
 .composer
 .filebot
+.zsh/ci-secrets.zsh
