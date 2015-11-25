@@ -110,3 +110,13 @@
 .grip
 .fontconfig
 /pebble-dev
+.itmstransporter
+.pearrc
+.putty
+.python-eggs
+.android
+PyTivo/Scripts/MLB
+mnt
+.docker
+.composer
+.filebot
