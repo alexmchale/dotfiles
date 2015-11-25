@@ -88,17 +88,46 @@ function tn {
 
 ### Hooks ###
 
-function precmd {
-  PREV_RET_VAL=$?
+#function precmd {
+#  PREV_RET_VAL=$?
+#
+#  export PROMPT="%F{green}%m %F{yellow}%~%F{blue}"
+#
+#  if [ $PREV_RET_VAL -eq 0 ] || [ -z "$PREV_RET_VAL" ]; then
+#    export PROMPT="$PROMPT %F{blue}→%F{none} "
+#  else
+#    export PROMPT="$PROMPT %F{red}→%F{none} "
+#  fi
+#}
 
-  export PROMPT="%F{green}%m %F{yellow}%~%F{blue}"
+bindkey -v
 
-  if [ $PREV_RET_VAL -eq 0 ] || [ -z "$PREV_RET_VAL" ]; then
-    export PROMPT="$PROMPT %F{blue}→%F{none} "
-  else
-    export PROMPT="$PROMPT %F{red}→%F{none} "
-  fi
+bindkey '^P' up-history
+bindkey '^N' down-history
+bindkey '^?' backward-delete-char
+bindkey '^h' backward-delete-char
+bindkey '^w' backward-kill-word
+bindkey '^r' history-incremental-search-backward
+
+function git_custom_status {
+  echo ""
 }
+
+function zle-line-init zle-keymap-select {
+  PREV_RET_VAL=$?
+  VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]% %{$reset_color%}"
+  if [ "$PREV_RET_VAL" -eq 0 ] || [ -z "$PREV_RET_VAL" ]; then
+    STATUS_PROMPT="%F{blue}→%F{none}"
+  else
+    STATUS_PROMPT="%F{red}→%F{none}"
+  fi
+  PS1="%F{green}%m %F{yellow}%~%F{blue}${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/}$(git_custom_status) $STATUS_PROMPT "
+  zle reset-prompt
+}
+
+zle -N zle-line-init
+zle -N zle-keymap-select
+export KEYTIMEOUT=1
 
 ### Aliases ###
 
@@ -156,7 +185,7 @@ HISTSIZE=1000000
 SAVEHIST=1000000
 setopt autocd extendedglob notify
 unsetopt beep
-bindkey -e
+bindkey -v
 zstyle :compinstall filename '/Users/alexmchale/.zshrc'
 autoload -U compinit
 compinit -C
@@ -169,7 +198,6 @@ zle -N edit-command-line
 bindkey "^X^E" edit-command-line
 export GOPATH="$HOME/src/go"
 setopt localoptions rmstarsilent
-
 
 ### Display archey if available ###
 
