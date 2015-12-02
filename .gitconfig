@@ -24,6 +24,8 @@
   lgh = log --date=\"short\" --format=\"%Credhttps://github.com/drhinternet/greenarrow-studio/commit/%H %Cgreen%s%Cblue%d %Cred(%aN %ad)\"
   unp =! git up && git push
 
+  sync =! git up && git push
+
 [mergetool "Kaleidoscope"]
   cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
   trustexitcode = true

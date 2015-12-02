@@ -174,6 +174,7 @@ au BufReadPost Rakefile set syntax=ruby
 au BufReadPost *.task set syntax=ruby
 au BufRead,BufNewFile *.csvbuilder setfiletype ruby
 au BufRead,BufNewFile *.json.jbuilder set ft=ruby
+au BufRead,BufNewFile *.go set ts=4 sw=4 syntax=go softtabstop=0 noexpandtab
 
 " Use GitHub Flavored Markdown syntax highlighting.
 augroup markdown
