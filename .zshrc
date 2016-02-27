@@ -113,21 +113,23 @@ function git_custom_status {
   echo ""
 }
 
-function zle-line-init zle-keymap-select {
-  PREV_RET_VAL=$?
-  VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]% %{$reset_color%}"
-  if [ "$PREV_RET_VAL" -eq 0 ] || [ -z "$PREV_RET_VAL" ]; then
-    STATUS_PROMPT="%F{blue}→%F{none}"
-  else
-    STATUS_PROMPT="%F{red}→%F{none}"
-  fi
-  PS1="%F{green}%m %F{yellow}%~%F{blue}${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/}$(git_custom_status) $STATUS_PROMPT "
-  zle reset-prompt
+#function zle-line-init zle-keymap-select {
+#  PREV_RET_VAL=$?
+#  VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]% %{$reset_color%}"
+#  #PS1="%F{blue}⟪ %{$fg_bold['yellow'']}%n%F{blue}@%F{yellow}%m %F{green}%~%F{yellow}${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/}$(git_custom_status) %F{blue}⟫ %F{reset}"
+#
+#  zle reset-prompt
+#}
+
+autoload -U colors && colors
+function precmd {
+  export PROMPT="%{$fg[red]%}%n%{$reset_color%}@%{$fg[blue]%}%m %{$fg_no_bold[yellow]%}%1~ %{$reset_color%}%#"
+  export PROMPT="%{$fg_bold[blue]%}⟪ %{$fg_bold[yellow]%}%n%{$reset_color%}%F{blue}@%{$fg_bold[yellow]%}%m %F{green}%~%F{yellow}${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/}$(git_custom_status) %{$fg_bold[blue]%}⟫ %{$fg_no_bold[white]%}"
 }
 
-zle -N zle-line-init
-zle -N zle-keymap-select
-export KEYTIMEOUT=1
+#zle -N zle-line-init
+#zle -N zle-keymap-select
+#export KEYTIMEOUT=1
 
 ### Aliases ###
 
