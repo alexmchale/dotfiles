@@ -109,27 +109,39 @@ bindkey '^h' backward-delete-char
 bindkey '^w' backward-kill-word
 bindkey '^r' history-incremental-search-backward
 
+autoload -U colors && colors
+
 function git_custom_status {
   echo ""
 }
 
-#function zle-line-init zle-keymap-select {
-#  PREV_RET_VAL=$?
-#  VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]% %{$reset_color%}"
-#  #PS1="%F{blue}⟪ %{$fg_bold['yellow'']}%n%F{blue}@%F{yellow}%m %F{green}%~%F{yellow}${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/}$(git_custom_status) %F{blue}⟫ %F{reset}"
-#
-#  zle reset-prompt
-#}
+function update_custom_prompt {
+  VIM_MODE_EDITING="${${KEYMAP/vicmd/EDITING}/(main|viins)/}"
 
-autoload -U colors && colors
-function precmd {
-  export PROMPT="%{$fg[red]%}%n%{$reset_color%}@%{$fg[blue]%}%m %{$fg_no_bold[yellow]%}%1~ %{$reset_color%}%#"
-  export PROMPT="%{$fg_bold[blue]%}⟪ %{$fg_bold[yellow]%}%n%{$reset_color%}%F{blue}@%{$fg_bold[yellow]%}%m %F{green}%~%F{yellow}${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/}$(git_custom_status) %{$fg_bold[blue]%}⟫ %{$fg_no_bold[white]%}"
+  if [ "$VIM_MODE_EDITING" = "EDITING" ]; then
+    PS1="%{$fg_bold[white]%}⟪ %n@%m %~ ⟫ %{$fg_no_bold[white]%}"
+  else
+    PS1="%{$fg_bold[blue]%}⟪ %{$fg_no_bold[yellow]%}%n%{$reset_color%}%F{blue}@%{$fg_no_bold[yellow]%}%m %{$fg_bold[green]%}%~%F{yellow} %{$fg_bold[blue]%}⟫ %{$fg_no_bold[white]%}"
+  fi
 }
 
-#zle -N zle-line-init
-#zle -N zle-keymap-select
-#export KEYTIMEOUT=1
+function zle-line-init zle-keymap-select {
+  #PREV_RET_VAL=$?
+  #VIM_PROMPT="[% NORMAL]% %{$reset_color%}"
+  #PS1="%F{blue}⟪ %{$fg_bold['yellow'']}%n%F{blue}@%F{yellow}%m %F{green}%~%F{yellow}${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/}$(git_custom_status) %F{blue}⟫ %F{reset}"
+
+  update_custom_prompt
+  zle reset-prompt
+}
+
+#function precmd {
+#  export PROMPT="%{$fg[red]%}%n%{$reset_color%}@%{$fg[blue]%}%m %{$fg_no_bold[yellow]%}%1~ %{$reset_color%}%#"
+#  export PROMPT="%{$fg_bold[blue]%}⟪ %{$fg_bold[yellow]%}%n%{$reset_color%}%F{blue}@%{$fg_bold[yellow]%}%m %F{green}%~%F{yellow}${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/}$(git_custom_status) %{$fg_bold[blue]%}⟫ %{$fg_no_bold[white]%}"
+#}
+
+zle -N zle-line-init
+zle -N zle-keymap-select
+export KEYTIMEOUT=1
 
 ### Aliases ###
 
@@ -203,4 +215,7 @@ setopt localoptions rmstarsilent
 
 ### Display archey if available ###
 
+echo
+echo
 archey --color 2> /dev/null
+echo
