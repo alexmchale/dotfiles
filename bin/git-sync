@@ -1,0 +1,37 @@
+#!/usr/bin/env ruby
+# encoding: utf-8
+
+RED    = "\e[0;31m"
+GREEN  = "\e[0;32m"
+YELLOW = "\e[0;33m"
+CLEAR  = "\e[0;0m"
+
+DOWN   = " ⬇︎ ".strip
+UP     = " ⬆︎ ".strip
+CHECK  = " ★ ".strip
+
+puts
+puts "#{ YELLOW + DOWN * 4 } #{ GREEN }Pulling into local repository #{ YELLOW + DOWN * 4 }#{ CLEAR }"
+puts
+
+unless system("git", "up")
+  puts
+  puts "#{ YELLOW }---> #{ RED }Failed to pull#{ CLEAR }"
+  puts
+  exit 1
+end
+
+puts
+puts "#{ YELLOW + UP * 4 } #{ GREEN }Pushing to remote repository #{ YELLOW + UP * 4 }#{ CLEAR }"
+puts
+
+unless system("git", "push")
+  puts
+  puts "#{ YELLOW }---> #{ RED }Failed to push#{ CLEAR }"
+  puts
+  exit 1
+end
+
+puts
+puts "#{ YELLOW + CHECK * 4 } #{ GREEN }Synchronization complete #{ YELLOW + CHECK * 4 }#{ CLEAR }"
+puts
