@@ -26,7 +26,7 @@ set mouse-=a
 set noincsearch
 set number
 set go-=rL
-set wildignore+=*.o,1.8.7,.git,*.obj
+set wildignore+=*.o,1.8.7,.git,*.obj,*/tmp/*,*.zip,*.swp,*.min.js
 set scrolloff=10
 set modeline
 set modelines=5
@@ -42,7 +42,7 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'mattn/webapi-vim'
 Plugin 'kchmck/vim-coffee-script'
-Plugin 'kien/ctrlp.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'mattn/gist-vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-endwise'
@@ -59,6 +59,7 @@ Plugin 'vim-ruby/vim-ruby'
 Plugin 'bling/vim-airline'
 Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'danro/rename.vim'
+Plugin 'tpope/vim-abolish'
 " Plugin 'jtratner/vim-flavored-markdown'
 Plugin 'slim-template/vim-slim'
 Plugin 'Keithbsmiley/swift.vim'
@@ -66,8 +67,13 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
 " Plugin 'vim-scripts/mru.vim'
 Plugin 'sukima/xmledit'
+Plugin 'trevorrjohn/vim-obsidian'
+Plugin 'fatih/vim-go'
 " Plugin 'gabrielelana/vim-markdown'
 " Plugin 'scrooloose/syntastic'
+" Color Schemes
+Plugin 'KKPMW/moonshine-vim'
+Plugin 'scrooloose/nerdcommenter'
 call vundle#end()
 filetype plugin indent on
 
@@ -97,6 +103,8 @@ else
   set t_Co=256
   set t_te=
   set t_ti=
+  "colorscheme obsidian
+  "colorscheme moonshine
   colorscheme vividchalk
 endif
 
@@ -122,6 +130,9 @@ command! -bar -range=% YesRocket :<line1>,<line2>s/\(\w\+\):/:\1 =>/e
 " Key support
 map!  <BackSpace>
 map ; :
+
+" Configure NERDTree
+let NERDTreeWinSize = 50
 
 " Navigation
 nmap <C-n> :qa!<CR>
@@ -150,6 +161,7 @@ augroup END
 autocmd BufNewFile,BufRead *.lib set filetype=c
 autocmd BufEnter * stopinsert
 autocmd BufWritePre *.jsx :%s/class=/className=/e
+"autocmd BufWritePre * :%s/subscribers/subscribers/e
 
 " Custom Highlighting
 highlight LineNr guifg=#777777 guibg=#202020 ctermfg=grey ctermbg=darkgrey
@@ -164,6 +176,9 @@ let g:ctrlp_custom_ignore = {
   \ 'dir': '\v[\/](\.(git|hg|svn))|(public|tmp)$',
   \ 'file': '\v\.(exe|so|dll)$' }
 
+" Search from CWD instead of project root
+let g:ctrlp_working_path_mode = 'w'
+
 " Change the gutter color.
 highlight LineNr term=bold cterm=NONE ctermfg=White ctermbg=Black gui=NONE guifg=#777777 guibg=#202020
 highlight clear SignColumn
@@ -175,6 +190,16 @@ au BufReadPost *.task set syntax=ruby
 au BufRead,BufNewFile *.csvbuilder setfiletype ruby
 au BufRead,BufNewFile *.json.jbuilder set ft=ruby
 au BufRead,BufNewFile *.go set ts=4 sw=4 syntax=go softtabstop=0 noexpandtab
+au BufRead,BufNewFile *.java set ts=4 sw=4 syntax=java softtabstop=0 expandtab
+au BufRead,BufNewFile Makefile set ts=4 sw=4 syntax=make softtabstop=0 noexpandtab
+
+" Bindings for go.
+au BufRead,BufNewFile *.go nmap \t :GoTest<CR>
+au BufRead,BufNewFile *.go nmap \T :GoTestFunc<CR>
+
+" Force the syntax for Perl, hard tabs.
+autocmd FileType perl set ts=4 sw=4 syntax=perl softtabstop=0 noexpandtab
+autocmd FileType php set ts=4 sw=4 syntax=php softtabstop=0 noexpandtab
 
 " Use GitHub Flavored Markdown syntax highlighting.
 augroup markdown
@@ -206,3 +231,14 @@ nmap \v :set paste<CR>:r !pbpaste<CR>:set nopaste<CR>
 imap \v <Esc>:set paste<CR>m'a<C-R>=system('pbpaste')<CR><Esc>:set nopaste<CR>a
 nmap \c :.w !pbcopy<CR><CR>
 vmap \c :<Esc>`>a<CR><Esc>mx`<i<CR><Esc>my'xk$v'y!pbcopy<CR>u
+nmap S ysiw
+
+let g:go_fmt_command = "goimports"
+
+
+
+let g:NERDDefaultAlign = 'left'
+let g:NERDSpaceDelims = 1
+let g:NERDTrimTrailingWhitespace = 1
+let g:NERDCommentEmptyLines = 1
+
