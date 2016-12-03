@@ -74,6 +74,7 @@ Plugin 'fatih/vim-go'
 " Color Schemes
 Plugin 'KKPMW/moonshine-vim'
 Plugin 'scrooloose/nerdcommenter'
+Plugin 'rust-lang/rust.vim'
 call vundle#end()
 filetype plugin indent on
 
