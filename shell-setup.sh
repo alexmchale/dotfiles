@@ -261,9 +261,11 @@ export LIGHT_MAGENTA="\033[1;35m"
 export         WHITE="\033[1;37m"
 export    LIGHT_GRAY="\033[0;37m"
 
-# Set the prompts.
-export PS1="\[\033[G\]\[$BLUE\][\[$LIGHT_GREEN\]\H \[$LIGHT_YELLOW\]\w\[$BLUE\]]\[$BLUE\] atm \$? \$ \[$CLEAR\]"
-export PS2="> "
-export PS4="+ "
+if [ "$SHELL" = "/bin/bash" ]; then
+  # Set the prompts.
+  export PS1="\[\033[G\]\[$BLUE\][\[$LIGHT_GREEN\]\H \[$LIGHT_YELLOW\]\w\[$BLUE\]]\[$BLUE\] atm \$? \$ \[$CLEAR\]"
+  export PS2="> "
+  export PS4="+ "
+fi
 
 # SETUP COMPLETE
