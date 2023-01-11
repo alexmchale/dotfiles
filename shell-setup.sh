@@ -236,9 +236,11 @@ alias gla="git log --date=\"short\" --format=\"%Cred%h %Cgreen%s%Cblue%d %Cred(%
 alias git="HOME=$MYDIR `which git`"
 alias ducks="du -shc * | sort -hr | head -20"
 
-if /bin/ls --version > /dev/null 2>&1; then
+if gls --color=auto > /dev/null 2>&1; then
+  alias ls="gls --color=auto"
+elif ls --color=auto > /dev/null 2>&1; then
   alias ls="ls --color=auto"
-else
+elif ls -G > /dev/null 2>&1; then
   alias ls="ls -G"
 fi
 
