@@ -31,10 +31,9 @@ set scrolloff=10
 set modeline
 set modelines=5
 set laststatus=2
-
-" set cursorline
 set nocursorline
 set nocursorcolumn
+set maxmempattern=100000
 
 " Vundle
 filetype off
