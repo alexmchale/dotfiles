@@ -53,8 +53,6 @@ EOF
 alias vim="vim -u $MYDIR/.vimrc"
 vim +PluginInstall +qall
 
-pushd $MYDIR/.vim/bundle/vim-go ; git checkout --quiet v1.16 ; popd
-
 cat >> $MYDIR/.vimrc <<EOF
 
 set nocompatible
