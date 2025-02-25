@@ -182,6 +182,9 @@ cat > $MYDIR/.gitconfig <<EOF
 [core]
   editor = /usr/bin/vim
 
+[merge]
+  conflictstyle = zdiff3
+
 [mergetool]
   prompt = false
 
@@ -200,6 +203,26 @@ cat > $MYDIR/.gitconfig <<EOF
 
 [credential]
   helper = cache --timeout=3600
+
+[rebase]
+  autosquash = true
+  autostash = true
+
+[commit]
+  verbose = true
+
+[diff]
+  colorMoved = true
+  algorithm = histogram
+
+[grep]
+  patternType = perl
+
+[feature]
+  experimental = true
+
+[branch]
+  sort = committerdate
 EOF
 
 cat > "$MYDIR/gl" <<'EOF'
